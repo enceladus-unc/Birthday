@@ -1,416 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Happy Birthday, My Sweet Sana ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Hug 🫂</title>
 <style>
-  :root{
-    --pink1:#ffb6c1; --pink2:#ff8fab; --pink3:#ff6f91; --accent:#ffd6e0; --glass: rgba(255,255,255,0.12);
+  body {
+    background: linear-gradient(135deg, #ffc3a0, #ffafbd);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    text-align: center;
+    padding: 50px;
+    overflow: hidden;
   }
-  html,body{height:100%;margin:0;font-family:"Comic Sans MS",cursive,sans-serif;background: radial-gradient(circle at top, var(--pink1), var(--pink2), var(--pink3)); color:#fff;}
-  .wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:28px;box-sizing:border-box;text-align:center;position:relative;overflow:hidden;}
 
-  /* intro */
-  #intro{font-size:1.45rem;max-width:880px;white-space:pre-line;border-right:3px solid rgba(255,255,255,0.75);overflow:hidden;width:0;margin-bottom:6px; animation:typing 4s steps(40,end) forwards, blink 0.8s infinite;}
-  @keyframes typing{from{width:0}to{width:100%}} @keyframes blink{from,to{border-color:transparent}50%{border-color:rgba(255,255,255,0.75)}}
-  h1#mainTitle{font-size:2.6rem; margin:0; text-shadow:0 0 30px #fff; display:none; animation:glow 2s infinite alternate;}
-  @keyframes glow{from{text-shadow:0 0 10px #fff,0 0 20px var(--pink2)} to {text-shadow:0 0 30px var(--pink3),0 0 60px var(--pink2)}}
-
-  .card{background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03)); padding:20px;border-radius:18px;box-shadow:0 6px 30px rgba(0,0,0,0.18); width:92%; max-width:900px; backdrop-filter: blur(6px); border:1px solid rgba(255,255,255,0.08);}
-
-  button{background:linear-gradient(180deg,var(--pink3),var(--pink2));border:none;padding:12px 18px;border-radius:999px;color:white;font-weight:600;cursor:pointer;box-shadow:0 6px 18px rgba(255,105,140,0.18);transition:transform .16s,box-shadow .16s;margin:6px;}
-  button:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(255,105,140,0.26);}
-  button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.12);}
-
-  /* games area */
-  #gamesArea{display:none;margin-top:14px;animation:fadeIn .7s both;}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
-  .panel{background:var(--glass);padding:14px;border-radius:12px;margin:10px 0;}
-
-  /* cake and parts */
-  .cake-wrap{position:relative;margin:20px auto;width:260px;height:150px;}
-  .cake-base{position:absolute;left:0;right:0;margin:0 auto;width:220px;height:120px;border-radius:14px;background:linear-gradient(180deg,#ffb6c1,#ff8fab);box-shadow:0 10px 20px rgba(0,0,0,0.25);overflow:visible}
-  .cake-layer{position:absolute;width:100%;height:36px;border-radius:10px}
-  .cake-layer.top{top:6px;background:#fff0f5}
-  .cake-layer.mid{top:36px;background:#ffc0cb}
-  .cake-layer.bot{top:66px;background:#ff8fab}
-
-  /* split halves (hidden initially) */
-  .half{position:absolute;top:0;width:50%;height:100%;overflow:hidden;transition:transform 800ms cubic-bezier(.2,.9,.2,1);border-radius:12px}
-  .half.left{left:0;transform:translateX(0)}
-  .half.right{right:0;transform:translateX(0)}
-  .half .cake-inner{position:absolute;left:0;right:0;top:0;bottom:0}
-
-  /* candles */
-  .candle{position:absolute;width:10px;height:42px;background:#fff;border-radius:6px;top:-44px;cursor:pointer;display:flex;align-items:flex-start;justify-content:center}
-  .flame{width:10px;height:14px;border-radius:50%;background: radial-gradient(circle, #ffd34d 30%, #ff8a2b 70%);margin-top:2px;animation:flicker .35s infinite}
-  @keyframes flicker{0%,100%{transform:scale(1)}50%{transform:scale(1.18) translateY(-2px)}}
-
-  /* knife cartoon */
-  .knife{position:fixed;left:-220px;top:40%;width:220px;height:60px;display:flex;align-items:center;gap:8px;pointer-events:none;transition:left 700ms cubic-bezier(.2,.9,.2,1);z-index:40}
-  .knife .blade{width:140px;height:20px;background:linear-gradient(90deg,#fff,#e6e6e6);border-radius:6px 6px 0 0;transform:rotate(-8deg);box-shadow:0 6px 10px rgba(0,0,0,0.15)}
-  .knife .handle{width:70px;height:42px;background:linear-gradient(180deg,#ffd6e0,#ffb6c1);border-radius:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 12px rgba(0,0,0,0.12)}
-  .heart-icon{font-size:18px;color:#a4004d;transform:translateY(-2px)}
-
-  /* sparkles */
-  .spark{position:absolute;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle,#fff8 20%, #fff 100%);opacity:0;transform:scale(0);transition:opacity .3s, transform .3s}
-
-  /* confetti fall */
-  @keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity:0 } }
-
-  /* final message panel (replaced by cinematic essay) */
-  #finalMessage{display:none;margin-top:12px;font-size:1.1rem}
-
-  /* essay cinematic page */
-  #essayPage{
-    position:fixed; inset:0; display:flex; align-items:center; justify-content:center; padding:40px; box-sizing:border-box;
-    background: radial-gradient(circle at 30% 20%, rgba(255, 233, 238, 0.85), rgba(255, 221, 230, 0.92));
-    flex-direction:column; z-index:80; opacity:0; pointer-events:none;
+  h1 {
+    color: #fff;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
   }
-  #essayCard{
-    width:90%; max-width:900px; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-    border-radius:18px; padding:30px 36px; box-shadow:0 12px 40px rgba(0,0,0,0.25); backdrop-filter: blur(6px); color:#fff;
+
+  .hug-btn {
+    background: #ff69b4;
+    border: none;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
   }
-  .essay-title{font-family:"Brush Script MT", "Lucida Handwriting", cursive; font-size:2.2rem; margin:6px 0 12px 0; color:#fff; text-shadow:0 6px 18px rgba(255,100,140,0.18)}
-  .essay-paragraph{font-size:1.05rem; line-height:1.6; color: #fff; opacity:0; transform:translateY(8px); transition:opacity .8s ease, transform .6s ease; margin:10px 0; text-align:left}
-  .essay-sign{font-family:"Brush Script MT",cursive; font-size:1.4rem; margin-top:18px; opacity:0; transform:translateY(8px); transition:opacity .8s ease .2s, transform .6s ease .2s}
 
-  /* floating petals for final page */
-  .petal{position:fixed; width:18px; height:18px; z-index:85; pointer-events:none; transform:rotate(0deg); opacity:0.95}
+  .hug-btn:hover {
+    background: #ff85c1;
+    transform: scale(1.1);
+  }
 
-  /* show essay */
-  .visible{opacity:1; transform:translateY(0); pointer-events:auto}
-  .essay-show{opacity:1}
+  .message {
+    margin-top: 30px;
+    color: white;
+    font-size: 1.5em;
+    opacity: 0;
+    transition: opacity 1s;
+  }
 
-  @media(max-width:480px){ .essay-title{font-size:1.6rem} .essay-paragraph{font-size:0.98rem} .knife{display:none} }
+  .heart {
+    position: absolute;
+    color: #ff1493;
+    font-size: 24px;
+    animation: floatUp 3s ease-in infinite;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap" id="wrap">
-  <canvas id="hearts"></canvas>
+  <h1>💞 Sending You a Virtual Hug 💞</h1>
+  <button class="hug-btn" onclick="sendHug()">Send Hug 🤗</button>
+  <div class="message" id="message">You just got the biggest, warmest hug! ❤️</div>
 
-  <div id="intro"></div>
-  <h1 id="mainTitle">🎂 Happy Birthday, My Sweet Sana 💖</h1>
+  <script>
+    function sendHug() {
+      const msg = document.getElementById('message');
+      msg.style.opacity = 1;
 
-  <div class="card" id="mainCard" style="display:none">
-    <p style="font-size:1.05rem"><strong>My dearest love... A very, very, very HAPPY SWEET 15, my sweetheart 💋💋🧿</strong></p>
-    <p>You are my favorite human — my joy, my peace, my everything. Let’s play a few cute games and finish with cake & a magical slice! 🌹</p>
-
-    <div style="margin:10px 0">
-      <button id="playBtn">Play the Love Game 💌</button>
-      <button id="revealBtn" class="ghost">Reveal My Love ❤️</button>
-    </div>
-
-    <div id="gamesArea">
-      <!-- SECRET MESSAGE PANEL -->
-      <div class="panel" id="secretPanel">
-        <h3>Secret Love Message (Bengali hint)</h3>
-        <p>Guess the secret message 💕</p>
-        <input type="text" id="guess" placeholder="Type your guess here 💞">
-        <button id="submitGuess">Submit</button>
-        <p id="result" style="margin-top:8px"></p>
-      </div>
-
-      <!-- Cake panel -->
-      <div class="panel" id="cakePanel" style="display:none">
-        <h3>Time for Cake 🎂</h3>
-        <p>Blow into the mic to extinguish all candles (allow mic), or tap each candle.</p>
-        <div class="cake-wrap">
-          <!-- dynamically populated -->
-          <div class="cake-base" id="cakeBase"></div>
-        </div>
-        <p id="cakeResult"></p>
-        <!-- knife (cartoon-style) -->
-        <div class="knife" id="knife" aria-hidden="true">
-          <div class="blade"></div>
-          <div class="handle"><span class="heart-icon">💖</span></div>
-        </div>
-      </div>
-
-      <div id="finalMessage" class="panel" style="display:none"></div>
-    </div>
-  </div>
-</div>
-
-<!-- Cinematic Essay Page (hidden until final) -->
-<div id="essayPage" aria-hidden="true">
-  <div id="essayCard">
-    <div class="essay-title">For My Sana, on Your Birthday</div>
-    <div id="essayBody">
-      <p class="essay-paragraph" id="p1"></p>
-      <p class="essay-paragraph" id="p2"></p>
-      <p class="essay-paragraph" id="p3"></p>
-      <p class="essay-paragraph" id="p4"></p>
-      <p class="essay-paragraph" id="p5"></p>
-      <div class="essay-sign" id="sign"></div>
-    </div>
-  </div>
-</div>
-
-<script>
-/* ===== Intro typewriter + show UI ===== */
-const introText = "Hey my love...\nBefore anything else,\nI just want to remind you of one thing —\nYou are the best thing that ever happened to me. 💖";
-const introEl = document.getElementById('intro');
-let idx = 0;
-function typeIntro(){
-  if(idx < introText.length){ introEl.textContent += introText.charAt(idx++); setTimeout(typeIntro,48); }
-  else { setTimeout(()=>{ introEl.style.display='none'; document.getElementById('mainTitle').style.display='block'; document.getElementById('mainCard').style.display='block'; },650); }
-}
-setTimeout(typeIntro,600);
-
-/* ===== floating hearts canvas ===== */
-const canvas = document.getElementById('hearts'), ctx = canvas.getContext('2d');
-let hearts=[];
-function resize(){ canvas.width=innerWidth; canvas.height=innerHeight; }
-window.addEventListener('resize', resize); resize();
-function Heart(x,y,s,spd,c){ this.x=x;this.y=y;this.s=s;this.spd=spd;this.c=c;this.o=Math.random()*0.6+0.35; }
-Heart.prototype.draw=function(){ ctx.globalAlpha=this.o; ctx.fillStyle=this.c; ctx.beginPath(); ctx.moveTo(this.x,this.y); ctx.bezierCurveTo(this.x-this.s/2,this.y-this.s/2,this.x-this.s,this.y+this.s/3,this.x,this.y+this.s); ctx.bezierCurveTo(this.x+this.s,this.y+this.s/3,this.x+this.s/2,this.y-this.s/2,this.x,this.y); ctx.fill(); };
-Heart.prototype.update=function(){ this.y-=this.spd; this.x+=Math.sin(this.y/40)*0.3; if(this.y<-20) this.y=canvas.height+20; };
-for(let i=0;i<80;i++){ const cols=['#ff6f91','#ffb6c1','#ffc1cc','#ff8fab']; hearts.push(new Heart(Math.random()*canvas.width,Math.random()*canvas.height,Math.random()*14+10,Math.random()*1+0.35,cols[Math.floor(Math.random()*cols.length)])); }
-function animate(){ ctx.clearRect(0,0,canvas.width,canvas.height); hearts.forEach(h=>{h.update();h.draw()}); requestAnimationFrame(animate); } animate();
-
-/* ===== Secret love game ===== */
-const secretMessage = "ami tomake onek bhalobashi";
-document.getElementById('playBtn').addEventListener('click', ()=>{ document.getElementById('gamesArea').style.display='block'; document.getElementById('secretPanel').scrollIntoView({behavior:'smooth'}); });
-
-document.getElementById('submitGuess').addEventListener('click', ()=>{
-  const g = document.getElementById('guess').value.toLowerCase().trim();
-  const res = document.getElementById('result');
-  if(g === secretMessage){
-    res.innerHTML = "💘 You got it, my love!";
-    // reveal cake panel and a small love message
-    setTimeout(()=>{ revealLoveAndCake(); }, 700);
-    confetti();
-  } else res.innerHTML = "Hmm... not quite, my sweetheart 💞 Try again!";
-});
-
-document.getElementById('revealBtn').addEventListener('click', ()=>{ revealLoveAndCake(); });
-
-function revealLoveAndCake(){
-  const res = document.getElementById('result');
-  res.innerHTML = '💘 Yesss Sana!! তুমি ঠিক বলেছো 💋<br><strong>AMI TOMAKE ONEK BHALOBASHI 💖</strong>';
-  document.getElementById('cakePanel').style.display='block';
-  setTimeout(()=>{ document.querySelector('.cake-wrap').scrollIntoView({behavior:'smooth'}); setupCake(); }, 800);
-}
-
-/* ===== Cake creation: halves + candles ===== */
-let micStream = null, analyser = null, blowDetected = false;
-function setupCake(){
-  const base = document.getElementById('cakeBase');
-  base.innerHTML = ''; // clear
-  // Create two halves as containers
-  const left = document.createElement('div'); left.className='half left'; left.style.left='0';
-  const right = document.createElement('div'); right.className='half right'; right.style.right='0';
-  const leftInner = document.createElement('div'); leftInner.className='cake-inner'; left.appendChild(leftInner);
-  const rightInner = document.createElement('div'); rightInner.className='cake-inner'; right.appendChild(rightInner);
-
-  // Add visible layers inside each half
-  ['top','mid','bot'].forEach((cls)=>{
-    const l = document.createElement('div'); l.className='cake-layer ' + (cls==='top'?'top':(cls==='mid'?'mid':'bot'));
-    leftInner.appendChild(l.cloneNode());
-    rightInner.appendChild(l.cloneNode());
-  });
-
-  // Put halves into base
-  base.appendChild(left); base.appendChild(right);
-
-  // Add candles across center
-  const candleCount = 5;
-  for(let i=0;i<candleCount;i++){
-    const candle = document.createElement('div'); candle.className='candle';
-    const leftPos = 18 + i * 36;
-    candle.style.left = leftPos + 'px';
-    const flame = document.createElement('div'); flame.className='flame';
-    candle.appendChild(flame);
-    candle.addEventListener('click', ()=>{
-      if(flame.parentNode) flame.remove();
-      checkCandles();
-    });
-    base.appendChild(candle);
-  }
-
-  // Initialize mic detection
-  tryEnableMic();
-}
-
-/* ===== Microphone blow detection ===== */
-function tryEnableMic(){
-  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
-  navigator.mediaDevices.getUserMedia({audio:true})
-    .then(stream => {
-      micStream = stream;
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const source = audioCtx.createMediaStreamSource(stream);
-      analyser = audioCtx.createAnalyser();
-      analyser.fftSize = 2048;
-      source.connect(analyser);
-      const data = new Uint8Array(analyser.frequencyBinCount);
-
-      function listen(){
-        analyser.getByteTimeDomainData(data);
-        let sum = 0;
-        for(let i=0;i<data.length;i++){
-          const v = (data[i] - 128) / 128;
-          sum += v*v;
-        }
-        const rms = Math.sqrt(sum / data.length);
-        if(rms > 0.08 && !blowDetected){
-          blowDetected = true;
-          blowOutAll();
-        }
-        requestAnimationFrame(listen);
+      // Create floating hearts
+      for (let i = 0; i < 20; i++) {
+        let heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '🫂';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (2 + Math.random() * 3) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
       }
-      listen();
-    })
-    .catch(err => {
-      console.log('Mic not enabled:', err);
-    });
-}
-
-/* blow out flames programmatically */
-function blowOutAll(){
-  document.querySelectorAll('.flame').forEach(f=>f.remove());
-  checkCandles();
-}
-
-/* check candles and proceed */
-function checkCandles(){
-  const remaining = document.querySelectorAll('.flame').length;
-  if(remaining === 0){
-    document.getElementById('cakeResult').innerText = "🎂 Yay! You blew out all the candles!";
-    confetti();
-    // trigger knife animation after short delay
-    setTimeout(()=>{ startKnifeAndSlice(); }, 900);
-  } else {
-    document.getElementById('cakeResult').innerText = `Candles remaining: ${remaining}. Keep going! 💕`;
-  }
-}
-
-/* ===== Knife slide-in and cartoon slice animation ===== */
-function startKnifeAndSlice(){
-  const knife = document.getElementById('knife');
-  knife.style.left = '10%';
-  setTimeout(()=>performSliceAnimation(), 900);
-}
-
-function performSliceAnimation(){
-  const leftHalf = document.querySelector('.half.left');
-  const rightHalf = document.querySelector('.half.right');
-  const base = document.getElementById('cakeBase');
-
-  // create sparkles
-  for(let s=0;s<10;s++){
-    const sp = document.createElement('div'); sp.className='spark';
-    sp.style.left = (100 + Math.random()*60) + 'px';
-    sp.style.top = (20 + Math.random()*40) + 'px';
-    base.appendChild(sp);
-    setTimeout(()=>{ sp.style.opacity = 1; sp.style.transform = 'scale(1.2)'; }, 70 + s*40);
-    setTimeout(()=>{ sp.style.opacity = 0; sp.style.transform='scale(0.2)'; }, 800 + s*50);
-    setTimeout(()=>sp.remove(), 1300 + s*50);
-  }
-
-  // slide halves apart
-  leftHalf.style.transform = 'translateX(-110%)';
-  rightHalf.style.transform = 'translateX(110%)';
-
-  // animate knife out
-  const knife = document.getElementById('knife');
-  setTimeout(()=>{ knife.style.left = '110%'; knife.style.transition = 'left 900ms cubic-bezier(.2,.9,.2,1)'; }, 700);
-
-  // after slice show essay cinematic
-  setTimeout(()=>{ showEssayCinematic(); }, 1400);
-}
-
-/* show final cinematic essay page */
-function showEssayCinematic(){
-  // stop mic stream to be polite
-  if(micStream){ micStream.getTracks().forEach(t=>t.stop()); micStream = null; }
-
-  // hide main card & games gracefully
-  document.getElementById('mainCard').style.transition = 'opacity 600ms ease';
-  document.getElementById('mainCard').style.opacity = '0';
-  setTimeout(()=>{
-    document.getElementById('mainCard').style.display = 'none';
-    // show essay page
-    const essayPage = document.getElementById('essayPage');
-    essayPage.style.transition = 'opacity 900ms ease';
-    essayPage.style.opacity = '1';
-    essayPage.style.pointerEvents = 'auto';
-    essayPage.setAttribute('aria-hidden','false');
-
-    // populate essay paragraphs (corrected & polished)
-    const p1 = "Thank you so much, sweetheart, for your love, your care, your time, your attention, and for everything you have done for me — for us. I truly appreciate you more than words can say. Have a very, very sweet birthday, my baby; you are perfect in every way.";
-    const p2 = "I will love you when you don't feel beautiful. I will love you when you stand in a corner and feel invisible. I will love you when you put on something nice and wish you had a different body to wear it. I will love you when people ignore your existence, and when you see yourself as awkward or forgettable.";
-    const p3 = "I will love you until my last bit of ash vanishes from this universe — and even after that. I hate waiting, but if waiting means we'll end up together, I'll wait forever.";
-    const p4 = "When I think of you, my heart beats harder and a smile comes automatically, as if you have the power to make me happy with just one look. I cherish every moment with you; even if it's only through a screen, it still feels like home. I could listen to you talk forever.";
-    const p5 = "Falling in love with you is the second-best thing that has ever happened to me; finding you was the first. I'm addicted to you — attracted to you, attached to you — in ways I can't explain. I only want your attention, love, and care. I think about you more than you realize. I appreciate you more than you'll ever know. You are the first and last thing on my mind every day. Loving you is the best part of my existence.";
-    const sign = "Forever yours,\nYour Abhishek";
-
-    document.getElementById('p1').textContent = p1;
-    document.getElementById('p2').textContent = p2;
-    document.getElementById('p3').textContent = p3;
-    document.getElementById('p4').textContent = p4;
-    document.getElementById('p5').textContent = p5;
-    document.getElementById('sign').textContent = sign;
-
-    // sequential reveal for cinematic feel
-    const parts = ['p1','p2','p3','p4','p5','sign'];
-    parts.forEach((id, i) => {
-      setTimeout(()=>{ document.getElementById(id).classList.add('visible'); }, 600 + i*700);
-    });
-
-    // spawn floating petals
-    spawnPetals();
-    // confetti gentle
-    confetti(60);
-  }, 650);
-}
-
-/* spawn simple petals on screen */
-function spawnPetals(){
-  const colors = ['#fff0f5','#ffd6e0','#fff5f7'];
-  for(let i=0;i<18;i++){
-    const px = document.createElement('div'); px.className='petal';
-    px.style.left = (Math.random()*100) + 'vw';
-    px.style.top = (-10 - Math.random()*20) + 'vh';
-    px.style.background = `radial-gradient(circle at 30% 30%, ${colors[Math.floor(Math.random()*colors.length)]}, rgba(255,255,255,0))`;
-    px.style.borderRadius = '50%';
-    px.style.width = (12 + Math.random()*18) + 'px';
-    px.style.height = (12 + Math.random()*18) + 'px';
-    px.style.opacity = 0.95;
-    px.style.transform = `rotate(${Math.random()*360}deg)`;
-    document.body.appendChild(px);
-    // animate falling
-    const delay = Math.random()*1000;
-    setTimeout(()=>{ px.style.transition = 'transform 4500ms linear, top 4500ms linear, opacity 3500ms'; px.style.top = (100 + Math.random()*20) + 'vh'; px.style.transform = `translateX(${(Math.random()*80-40)}px) rotate(${Math.random()*720}deg)`; px.style.opacity = 0.9; }, delay);
-    setTimeout(()=>px.remove(), 6500 + delay);
-  }
-}
-
-/* ===== Confetti util (emoji confetti) ===== */
-function confetti(count = 80){
-  for(let i=0;i<count;i++){
-    const e = document.createElement('div');
-    e.innerHTML = Math.random()>0.5 ? '💖' : '🌸';
-    Object.assign(e.style,{
-      position:'fixed',
-      left: (Math.random()*100) + 'vw',
-      top: '-10px',
-      fontSize: (Math.random()*28 + 12) + 'px',
-      pointerEvents: 'none',
-      transform: `rotate(${Math.random()*360}deg)`,
-      animation: `fall ${Math.random()*2 + 2}s linear forwards`
-    });
-    document.body.appendChild(e);
-    setTimeout(()=>e.remove(), 5000);
-  }
-}
-
-/* clean up mic when page unloads */
-window.addEventListener('beforeunload', ()=>{ if(micStream){ micStream.getTracks().forEach(t=>t.stop()); } });
-
-</script>
+    }
+  </script>
 </body>
 </html>
