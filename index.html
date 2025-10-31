@@ -2,81 +2,274 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Virtual Hug 🫂</title>
+<title>Happy Birthday Sana!</title>
 <style>
   body {
-    background: linear-gradient(135deg, #ffc3a0, #ffafbd);
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    text-align: center;
-    padding: 50px;
+    margin: 0;
     overflow: hidden;
+    background: #0b0c2a; /* night sky */
+    font-family: 'Arial', sans-serif;
+    color: white;
+    text-align: center;
   }
 
-  h1 {
-    color: #fff;
+  h1#pageTitle {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
     font-size: 2.5em;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    color: #ff99cc;
+    text-shadow: 0 0 15px #ff66b3;
+    z-index: 50;
   }
 
-  .hug-btn {
-    background: #ff69b4;
-    border: none;
-    color: white;
-    padding: 15px 40px;
-    border-radius: 30px;
+  .screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    background: rgba(0,0,30,0.6);
+    padding: 20px 30px;
+    border-radius: 15px;
     font-size: 1.2em;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.3s;
+    z-index: 20;
+    display: none;
   }
 
-  .hug-btn:hover {
-    background: #ff85c1;
-    transform: scale(1.1);
-  }
+  #intro { display: block; }
 
-  .message {
-    margin-top: 30px;
+  #startButton {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 10px;
+    background: #ff66b3;
     color: white;
-    font-size: 1.5em;
-    opacity: 0;
-    transition: opacity 1s;
+    cursor: pointer;
+    z-index: 21;
+    position: relative;
   }
 
   .heart {
     position: absolute;
-    color: #ff1493;
-    font-size: 24px;
-    animation: floatUp 3s ease-in infinite;
+    width: 40px;
+    height: 40px;
+    background: pink;
+    transform: rotate(-45deg);
+    cursor: pointer;
+    z-index: 25;
   }
 
-  @keyframes floatUp {
-    0% { transform: translateY(0) scale(1); opacity: 1; }
-    100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: pink;
+    border-radius: 50%;
   }
+
+  .heart::before { top: -20px; left: 0; }
+  .heart::after { left: 20px; top: 0; }
+
+  .stars, .planet, .comet {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .stars { background: white; z-index: 1; }
+  .planet { z-index: 2; }
+  .comet { width: 4px; height: 4px; box-shadow: 0 0 10px #fff, 0 0 20px #fff; z-index: 50; }
+
+  #gameTitle {
+    font-size: 2em;
+    font-weight: bold;
+    color: #ff99cc;
+    text-shadow: 0 0 10px #ff66b3;
+    margin-bottom: 15px;
+  }
+
+  #gameMessage {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+  }
+
+  #outro {
+    font-size: 1.8em;
+    color: #ffccff;
+    text-shadow: 0 0 15px #ff99cc, 0 0 30px #ff66b3;
+    background: rgba(0,0,30,0.5);
+    padding: 20px 35px;
+    border-radius: 15px;
+    opacity: 0;
+    transition: opacity 3s ease-in-out, transform 8s ease-out;
+    z-index: 30;
+    text-align: center;
+    width: 80%;
+    display: block;
+  }
+
+  /* Intro stars */
+  #introStars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  #introStars div {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 2s infinite alternate;
+  }
+
+  @keyframes twinkle {
+    from { opacity: 0.2; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1.2); }
+  }
+
 </style>
 </head>
 <body>
-  <h1>💞 Sending You a Virtual Hug 💞</h1>
-  <button class="hug-btn" onclick="sendHug()">Send Hug 🤗</button>
-  <div class="message" id="message">You just got the biggest, warmest hug! ❤️</div>
 
-  <script>
-    function sendHug() {
-      const msg = document.getElementById('message');
-      msg.style.opacity = 1;
+<h1 id="pageTitle">🎉 Happy Birthday Sana! 🎉</h1>
 
-      // Create floating hearts
-      for (let i = 0; i < 20; i++) {
-        let heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.innerHTML = '🫂';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (2 + Math.random() * 3) + 's';
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 3000);
+<!-- INTRO SCREEN -->
+<div id="intro" class="screen">
+  <div id="introStars"></div>
+  You had your own battles, but you still made space for mine. Thank you so much for that.<br>
+  Don't be sad for what happened today!! I'm here na, I promise to make all of your birthdays special my baby, cheer up please na!!<br>
+  I promise to be there soon, and the first thing I'm gonna do is...<br>
+  <strong>ILL HUG YOU SOOOO TIGHTLY KI YOUU'LL FORGET ABOUT ALL YOUR PROBLEMS!!</strong><br>
+  Happy birthday once again my baby, I'm really very proud of you, you're the bravest, the coolest, the bestest.<br>
+  You're my Superhero darling, I love you so much. Always, forever.<br>
+  <button id="startButton">Start Game 💖</button>
+</div>
+
+<!-- GAME SCREEN -->
+<div id="game" class="screen">
+  <div id="gameTitle">💖 Heart Catching Game 💖</div>
+  <div id="gameMessage">Click all the hearts Sana!</div>
+</div>
+
+<!-- OUTRO SCREEN -->
+<div id="outro"></div>
+
+<script>
+const intro = document.getElementById('intro');
+const startButton = document.getElementById('startButton');
+const game = document.getElementById('game');
+const gameMessage = document.getElementById('gameMessage');
+const outro = document.getElementById('outro');
+
+// ---- INTRO STARS AND PLANETS ----
+function createIntroStars() {
+  const starCount = 50;
+  const starContainer = document.getElementById('introStars');
+  const planetColors = ['#ff6666','#66ffcc','#6699ff','#ffcc66','#cc66ff'];
+
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    const size = 2 + Math.random() * 3;
+    star.style.width = star.style.height = size + 'px';
+    star.style.top = Math.random() * window.innerHeight + 'px';
+    star.style.left = Math.random() * window.innerWidth + 'px';
+    starContainer.appendChild(star);
+  }
+
+  // Floating planets in intro
+  for (let i = 0; i < 5; i++) {
+    const planet = document.createElement('div');
+    planet.className = 'planet';
+    const size = 30 + Math.random()*30;
+    planet.style.width = planet.style.height = size + 'px';
+    planet.style.background = planetColors[i % planetColors.length];
+    planet.style.left = Math.random()*window.innerWidth + 'px';
+    planet.style.top = Math.random()*window.innerHeight*0.7 + 'px';
+    planet.style.borderRadius = '50%';
+    document.body.appendChild(planet);
+
+    // Simple floating animation
+    setInterval(() => {
+      planet.style.transform = `translate(${Math.random()*200-100}px, ${Math.random()*50-25}px)`;
+    }, 3000 + Math.random()*2000);
+  }
+}
+createIntroStars();
+
+// ---- GAME LOGIC ----
+let heartsCollected = 0;
+const totalHearts = 10;
+
+startButton.addEventListener('click', startGame);
+
+function startGame() {
+  intro.style.display = 'none';
+  game.style.display = 'block';
+  createHearts();
+}
+
+function createHearts() {
+  for (let i = 0; i < totalHearts; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.top = Math.random() * (window.innerHeight - 60) + 'px';
+    heart.style.left = Math.random() * (window.innerWidth - 60) + 'px';
+    document.body.appendChild(heart);
+
+    heart.addEventListener('click', () => {
+      heart.remove();
+      heartsCollected++;
+      if (heartsCollected === totalHearts) {
+        endGame();
       }
-    }
-  </script>
+    });
+  }
+}
+
+// ---- WINNING KISS RAIN ----
+function createKissRain() {
+  for (let i = 0; i < 50; i++) {
+    const kiss = document.createElement('div');
+    kiss.innerHTML = '💋';
+    kiss.style.position = 'absolute';
+    kiss.style.top = Math.random()*window.innerHeight + 'px';
+    kiss.style.left = Math.random()*window.innerWidth + 'px';
+    kiss.style.fontSize = '24px';
+    kiss.style.opacity = 0.8;
+    kiss.style.zIndex = 30;
+    document.body.appendChild(kiss);
+
+    const fallDuration = 3000 + Math.random()*2000;
+    kiss.animate([
+      { transform: `translateY(0px)` },
+      { transform: `translateY(${window.innerHeight}px)` }
+    ], { duration: fallDuration, iterations: Infinity });
+  }
+}
+
+// ---- OUTRO ----
+function showOutro() {
+  game.style.display = 'none';
+  outro.style.opacity = 1;
+  outro.innerHTML = `✨ These stars may shine bright, but you're the brightest star in my universe, darling! ✨`;
+}
+
+function endGame() {
+  gameMessage.innerHTML = '💖 You caught all the hearts, Sana! 💖<br>Get ready for a kiss storm!';
+  createKissRain();
+  setTimeout(showOutro, 3000);
+}
+</script>
+
 </body>
 </html>
